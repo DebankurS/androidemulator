@@ -4,7 +4,7 @@ RUN apt-get update -qq
 
 ENV ANDROID_HOME /opt/android-sdk-linux
 
-EXPOSE 5000
+
 
 
 # ------------------------------------------------------
@@ -41,14 +41,7 @@ RUN cd /opt \
 
 ENV PATH ${PATH}:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/cmdline-tools/tools/bin::${ANDROID_HOME}/emulator
 
-RUN mkdir /app
 
-COPY /files/* /app/
-
-WORKDIR /app
-
-RUN python3 -m pip install -U pip
-RUN python3 -m pip install -r requirements.txt
 
 # ------------------------------------------------------
 # --- Install Android SDKs and other build packages
@@ -125,5 +118,15 @@ RUN yes | sdkmanager \
 RUN avdmanager create avd -n test -d pixel_3 -k "system-images;android-30;google_apis_playstore;x86"
 
 
-RUN chmod +x -R /app/docker-entrypoint.sh
-CMD /app/docker-entrypoint.sh
+# EXPOSE 5000
+# RUN mkdir /app
+
+# COPY /files/* /app/
+
+# WORKDIR /app
+
+# RUN python3 -m pip install -U pip
+# RUN python3 -m pip install -r requirements.txt
+
+# RUN chmod +x -R /app/docker-entrypoint.sh
+# CMD /app/docker-entrypoint.sh
